@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MyIntroFragment extends Fragment {
-
+/*자기소개*/
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -77,7 +77,7 @@ public class BookItems {
 
 
     public static class ItemsBean {
-        /**
+        /***
          * title : Do it! <b>안드로이드</b> 앱 프로그래밍 (<b>안드로이드</b> 8.0 오레오 버전 반영판!)
          * link : http://book.naver.com/bookdb/book_detail.php?bid=13272675
          * image : http://bookthumb.phinf.naver.net/cover/132/726/13272675.jpg?type=m1&udate=20180322
@@ -91,6 +91,8 @@ public class BookItems {
 
          《Do it! <b>안드로이드</b> 앱 프로그래밍》의 다섯 번째 전면 개정판이 나왔다. 이번 개정 5판에서는 <b>안드로이드</b> 8.0 버전(오레오)에 맞춰 소스 코드 테스트를 완료했다. 특히 업그레이드된...
          */
+
+       /* 북아이템*/
 
         private String title;
         private String link;
