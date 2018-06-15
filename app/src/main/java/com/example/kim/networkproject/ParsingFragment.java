@@ -119,7 +119,9 @@ public class ParsingFragment extends Fragment {
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
             String text = bookItems.getItems().get(position).getTitle();
+            String pubdate = bookItems.getItems().get(position).getPubdate();
             holder.title.setText(text);
+            holder.pubdate.setText(pubdate);
         }
 
         @Override
@@ -130,9 +132,11 @@ public class ParsingFragment extends Fragment {
 
     private class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView title;
+        public TextView pubdate;
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            pubdate = (TextView)itemView.findViewById(R.id.txt_pubdate);
             title = (TextView)itemView.findViewById(R.id.txt_title);
         }
     }//end viewHolder
