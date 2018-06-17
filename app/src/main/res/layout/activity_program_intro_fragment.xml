@@ -1,13 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.kim.networkproject.ProgramIntroFragment">
     <TextView
+        android:id="@+id/intro"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="50dp"
         android:text="프로그램 소개"/>
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/program"
+        android:paddingLeft="20dp"
+        android:layout_below="@+id/intro"
+        android:text="프로그램 개요 : 뉴스파서"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/haksim"
+        android:paddingLeft="20dp"
+        android:layout_below="@+id/program"
+        android:text="프로그램 핵심기능 : Retrofit,RecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/desgin"
+        android:paddingLeft="20dp"
+        android:layout_below="@+id/haksim"
+        android:text="구성 디자인 : Card View"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/maker"
+        android:paddingLeft="20dp"
+        android:layout_below="@+id/desgin"
+        android:text="제작자 : 김호섭"
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+</RelativeLayout>

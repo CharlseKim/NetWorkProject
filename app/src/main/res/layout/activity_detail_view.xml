@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/news_img"
     tools:context="com.example.kim.networkproject.DetailView">
 
     <TextView
+        android:textColor="#000"
         android:id="@+id/detailtitle"
         android:layout_marginTop="20dp"
         android:textAlignment="center"
@@ -16,29 +18,41 @@
         android:hint="title"/>
 
     <TextView
-        android:paddingLeft="290dp"
+        android:paddingLeft="300dp"
         android:id="@+id/pubdate"
+        android:textColor="#000"
         android:layout_below="@id/detailtitle"
         android:layout_width="match_parent"
-        android:text="2016-01-01"
+        android:text="날짜"
         android:layout_height="wrap_content" />
 
     <TextView
         android:layout_marginTop="30dp"
         android:id="@+id/content"
+        android:textColor="#000"
         android:layout_below="@id/pubdate"
         android:textAlignment="center"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="content"/>
 
-    <TextView
+
+    <Button
+        android:layout_alignRight="@id/content"
+        android:layout_below="@id/content"
+        android:id="@+id/linkBtn"
+        android:layout_marginTop="15dp"
+        android:text="링크연결"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp" />
+
+<!--    <TextView
         android:layout_marginTop="10dp"
         android:id="@+id/link"
         android:layout_below="@id/content"
         android:textAlignment="center"
         android:text="link"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" />-->
 
 </RelativeLayout>

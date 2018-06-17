@@ -17,10 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +28,7 @@ public class ParsingFragment extends Fragment {
     RecyclerView recyclerView;
     EditText editSearch;
     Button searchBtn;
-    BookItems bookItems;
+    NewsItems newsItems;
 
 
     @Nullable
@@ -43,53 +39,64 @@ public class ParsingFragment extends Fragment {
 
 
         LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.activity_parsing_fragment,container,false);
+        //LinearLayout 변수
         editSearch = (EditText)linearLayout.findViewById(R.id.editSearch);
         searchBtn = (Button)linearLayout.findViewById(R.id.searchBtn);
 
+        //검색 버튼을 누르면
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                String key = editSearch.getText().toString();
+               //key는 검색할 때 쓰이는 key이다.
 
                getBooklist(key);
             }
         });
 
         recyclerView = (RecyclerView)linearLayout.findViewById(R.id.recyclerView);
+        //recyclerView 를 linearLayout에서 찾아온다
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //setLayoutManager
 
         recyclerView.addItemDecoration(new MyItemDecoration());
+        //색깔 떠있는 여부 등을 지정한다
 
         return linearLayout;
+        //리턴
     }
 
     private void getBooklist(String key){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://openapi.naver.com/")
-                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://openapi.naver.com/")  //요청할 api 의 baseUrl
+                .addConverterFactory(GsonConverterFactory.create()) //Gson은 json객체를 자바 객체로 변환 해준다.
                 .build();
 
         NaverApiService apiService = retrofit.create(NaverApiService.class);
-        Call<BookItems> call = apiService.getSearchItems(key,"20","1");
-        Log.d("callprev","pr");
-        call.enqueue(new Callback<BookItems>() {
-            @Override
-            public void onResponse(Call<BookItems> call, Response<BookItems> response) {
-                Log.d("callin","pr");
-                if(response.isSuccessful()){
-                    //데이터를 받아서 recyclerAdapter에 설정
-                    bookItems = response.body();
-                    if(!bookItems.getItems().isEmpty()){
+        Call<NewsItems> call = apiService.getSearchItems(key,"20","1");
+        //key는 검색할때 쓰이는 key 이고, display는 화면에 보여질 개수 , start는 검색 시작 위치로 최대 1000까지 지정가능
 
-                        recyclerView.setAdapter(new MyAdapter(bookItems));
+        call.enqueue(new Callback<NewsItems>() {
+            //호출
+            @Override
+            public void onResponse(Call<NewsItems> call, Response<NewsItems> response) {
+                //응답
+                if(response.isSuccessful()){
+                    //정상적으로 응답이 오면
+                    newsItems = response.body();
+                    //데이터를 받아서 recyclerAdapter에 설정 이때 api의 반환 변수명과 vo의 변수명이 같아야 한다.
+                    if(!newsItems.getItems().isEmpty()){
+                        //비어있는지 체크를 한후 recyclerView에다가 Adpter를 단다.
+                        recyclerView.setAdapter(new MyAdapter(newsItems));
 
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<BookItems> call, Throwable t) {
+            public void onFailure(Call<NewsItems> call, Throwable t) {
+                //실패
                 call.cancel();
                 t.printStackTrace();
             }
@@ -101,12 +108,12 @@ public class ParsingFragment extends Fragment {
     private class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
 
-        private BookItems bookItems;
+        private NewsItems newsItems;
 
 
 
-        public MyAdapter(BookItems bookItems){
-            this.bookItems = bookItems;
+        public MyAdapter(NewsItems newsItems){
+            this.newsItems = newsItems;
         }
 
         @Override
@@ -114,21 +121,25 @@ public class ParsingFragment extends Fragment {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.main_list_item,parent,false
             );
+            //View 객체를 생성
+            //main_list_item은 cardView
             return new MyViewHolder(view);
+            //MyViewHolder는 Holder클래스 역할을 한다
         }
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, final int position) {
-            final String title = bookItems.getItems().get(position).getTitle();
-            final String pubDate = bookItems.getItems().get(position).getPubDate();
-            final String content = bookItems.getItems().get(position).getDescription();
-            final String link = bookItems.getItems().get(position).getLink();
+            //Binding
+            final String title = newsItems.getItems().get(position).getTitle();
+            final String pubDate = newsItems.getItems().get(position).getPubDate();
+            final String content = newsItems.getItems().get(position).getDescription();
+            final String link = newsItems.getItems().get(position).getLink();
             holder.title.setText(Html.fromHtml(title));
             holder.pubdate.setText(Html.fromHtml(pubDate));
 
 
 
-
+            //CardView의 Linear 자체가 클릭되었을때
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -142,10 +153,11 @@ public class ParsingFragment extends Fragment {
                     intent.putExtras(bundle);
                     startActivity(intent);
                     Log.d("pubDate",pubDate);
-                    Log.d("linear click",bookItems.getItems().get(position).getDescription());
+                    Log.d("linear click", newsItems.getItems().get(position).getDescription());
                 }
             });
 
+            //제목이 클릭되었을때
             holder.title.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -165,11 +177,13 @@ public class ParsingFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return bookItems.getItems().size();
+            return newsItems.getItems().size();
         }
+        // 아이템 개수를 리턴해준다
     }//end RecyclerAdapter
 
     private class MyViewHolder extends RecyclerView.ViewHolder{
+        //Holder 클래스
         public TextView title;
         public TextView pubdate;
         public LinearLayout linearLayout;

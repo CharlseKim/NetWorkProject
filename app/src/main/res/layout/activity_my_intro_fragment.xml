@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="20dp"
     tools:context="com.example.kim.networkproject.MyIntroFragment">
 
     <TextView
+        android:id="@+id/intromyself"
+        android:text="자기소개"
+        android:textAlignment="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="나는 김호섭"/>
+        android:layout_height="50dp" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/name"
+        android:layout_below="@id/intromyself"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="제작자 이름 : 김호섭"/>
+
+    <TextView
+        android:id="@+id/job"
+        android:layout_below="@id/name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="직업 : 학생(근로자)"/>
+
+    <TextView
+        android:id="@+id/jobplace"
+        android:layout_below="@id/job"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="근무처 : 양영디지털고등학교 소프트웨어 개발과, 솔트웨어"/>
+
+    <TextView
+        android:id="@+id/age"
+        android:layout_below="@id/jobplace"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="나이 : 김호섭"/>
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_below="@id/age"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="메일 : speedquarter@gamil.com"/>
+
+</RelativeLayout>

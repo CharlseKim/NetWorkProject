@@ -14,5 +14,6 @@ public class MyIntroFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_my_intro_fragment,container,false);
+        //my_intro_fragment xml을 메모리에 올림
     }
 }
