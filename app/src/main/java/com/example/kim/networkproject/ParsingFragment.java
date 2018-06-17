@@ -1,5 +1,6 @@
 package com.example.kim.networkproject;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,7 @@ public class ParsingFragment extends Fragment {
     Button searchBtn;
     BookItems bookItems;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,8 +56,6 @@ public class ParsingFragment extends Fragment {
         });
 
         recyclerView = (RecyclerView)linearLayout.findViewById(R.id.recyclerView);
-
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -117,11 +118,49 @@ public class ParsingFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
-            String text = bookItems.getItems().get(position).getTitle();
-            String pubdate = bookItems.getItems().get(position).getPubdate();
-            holder.title.setText(text);
-            holder.pubdate.setText(pubdate);
+        public void onBindViewHolder(MyViewHolder holder, final int position) {
+            final String title = bookItems.getItems().get(position).getTitle();
+            final String pubDate = bookItems.getItems().get(position).getPubDate();
+            final String content = bookItems.getItems().get(position).getDescription();
+            final String link = bookItems.getItems().get(position).getLink();
+            holder.title.setText(Html.fromHtml(title));
+            holder.pubdate.setText(Html.fromHtml(pubDate));
+
+
+
+
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(),DetailView.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("title",title);
+                    bundle.putString("pubDate",pubDate);
+                    bundle.putString("content",content);
+                    bundle.putString("link",link);
+
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    Log.d("pubDate",pubDate);
+                    Log.d("linear click",bookItems.getItems().get(position).getDescription());
+                }
+            });
+
+            holder.title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(),DetailView.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("title",title);
+                    bundle.putString("pubDate",pubDate);
+                    bundle.putString("content",content);
+                    bundle.putString("link",link);
+
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
+
         }
 
         @Override
@@ -133,9 +172,11 @@ public class ParsingFragment extends Fragment {
     private class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView title;
         public TextView pubdate;
+        public LinearLayout linearLayout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            linearLayout = (LinearLayout)itemView.findViewById(R.id.linear);
             pubdate = (TextView)itemView.findViewById(R.id.txt_pubdate);
             title = (TextView)itemView.findViewById(R.id.txt_title);
         }

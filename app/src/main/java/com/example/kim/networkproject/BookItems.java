@@ -101,7 +101,7 @@ public class BookItems {
         private String price;
         private String discount;
         private String publisher;
-        private String pubdate;
+        private String pubDate;
         private String isbn;
         private String description;
 
@@ -161,12 +161,12 @@ public class BookItems {
             this.publisher = publisher;
         }
 
-        public String getPubdate() {
-            return pubdate;
+        public String getPubDate() {
+            return pubDate;
         }
 
-        public void setPubdate(String pubdate) {
-            this.pubdate = pubdate;
+        public void setPubDate(String pubDate) {
+            this.pubDate = pubDate;
         }
 
         public String getIsbn() {
